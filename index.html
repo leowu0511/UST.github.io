@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>學測倒數</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  .time-unit {
+    display: inline-block;
+    border: 2px solid #333; /* 每個時間單位的框框 */
+    padding: 20px; /* 每個時間單位的內邊距 */
+    margin: 0 10px; /* 每個時間單位之間的間距 */
+  }
+</style>
+</head>
+<body>
+<h1>學測倒數</h1>
+<div id="countdown">
+  <div class="time-unit" id="days"></div>
+  <div class="time-unit" id="hours"></div>
+  <div class="time-unit" id="minutes"></div>
+  <div class="time-unit" id="seconds"></div>
+</div>
+
+<script>
+  // 設定目標日期為 2025 年 1 月 17 日
+  const targetDate = new Date('January 17, 2025 00:00:00').getTime();
+
+  // 更新倒數計時
+  const updateCountdown = () => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    // 計算時間單位
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // 顯示在網頁上
+    document.getElementById('days').innerHTML = `<strong>${days}</strong> 天`;
+    document.getElementById('hours').innerHTML = `<strong>${hours}</strong> 時`;
+    document.getElementById('minutes').innerHTML = `<strong>${minutes}</strong> 分`;
+    document.getElementById('seconds').innerHTML = `<strong>${seconds}</strong> 秒`;
+
+    // 倒數結束後顯示訊息
+    if (distance <= 0) {
+      clearInterval(countdownInterval);
+      document.getElementById('countdown').innerHTML = '已過期！';
+    }
+  };
+
+  // 每秒更新一次倒數計時
+  const countdownInterval = setInterval(updateCountdown, 1000);
+
+  // 頁面載入時立即更新倒數計時
+  updateCountdown();
+</script>
+</body>
+</html>
