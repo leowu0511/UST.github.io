@@ -1,82 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5E3BNJQB3C"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-5E3BNJQB3C');
-</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5E3BNJQB3C"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5E3BNJQB3C');
+  </script>
   
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>學測倒數</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-  }
-  .time-unit {
-    display: inline-block;
-    border: 2px solid #333; /* 每個時間單位的框框 */
-    padding: 20px; /* 每個時間單位的內邊距 */
-    margin: 0 10px; /* 每個時間單位之間的間距 */
-    font-size: 24px; /* 將字體大小設為 24 像素 */
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>學測倒數</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      transition: background-color 0.5s, color 0.5s;
+    }
+    .time-unit {
+      display: inline-block;
+      border: 2px solid #333; /* 每個時間單位的框框 */
+      padding: 20px; /* 每個時間單位的內邊距 */
+      margin: 0 10px; /* 每個時間單位之間的間距 */
+      font-size: 24px; /* 將字體大小設為 24 像素 */
+    }
+    .night-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    .toggle-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    .toggle-button:hover {
+      background-color: #555;
+    }
+  </style>
 </head>
 <body>
-<h1>學測倒數</h1>
-<div id="countdown">
-  <div class="time-unit" id="days"></div>
-  <div class="time-unit" id="hours"></div>
-  <div class="time-unit" id="minutes"></div>
-  <div class="time-unit" id="seconds"></div>
-</div>
+  <h1>學測倒數</h1>
+  <button class="toggle-button" onclick="toggleNightMode()">切換夜晚模式</button>
+  <div id="countdown">
+    <div class="time-unit" id="days"></div>
+    <div class="time-unit" id="hours"></div>
+    <div class="time-unit" id="minutes"></div>
+    <div class="time-unit" id="seconds"></div>
+  </div>
 
-<script>
-  // 設定目標日期為 2025 年 1 月 17 日
-  const targetDate = new Date('January 17, 2025 00:00:00').getTime();
+  <script>
+    // 設定目標日期為 2025 年 1 月 17 日 8時 00分
+    const targetDate = new Date('January 17, 2025 08:00:00').getTime();
 
-  // 更新倒數計時
-  const updateCountdown = () => {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+    // 更新倒數計時
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
 
-    // 計算時間單位
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      // 計算時間單位
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    // 如果秒數為個位數，補零成兩位數
-    if (seconds < 10) {
-      seconds = '0' + seconds;
-    }
+      // 如果秒數為個位數，補零成兩位數
+      if (seconds < 10) {
+        seconds = '0' + seconds;
+      }
 
-    // 顯示在網頁上
-    document.getElementById('days').innerHTML = `<strong>${days}</strong> 天`;
-    document.getElementById('hours').innerHTML = `<strong>${hours}</strong> 時`;
-    document.getElementById('minutes').innerHTML = `<strong>${minutes}</strong> 分`;
-    document.getElementById('seconds').innerHTML = `<strong>${seconds}</strong> 秒`;
+      // 顯示在網頁上
+      document.getElementById('days').innerHTML = `<strong>${days}</strong> 天`;
+      document.getElementById('hours').innerHTML = `<strong>${hours}</strong> 時`;
+      document.getElementById('minutes').innerHTML = `<strong>${minutes}</strong> 分`;
+      document.getElementById('seconds').innerHTML = `<strong>${seconds}</strong> 秒`;
 
-    // 倒數結束後顯示訊息
-    if (distance <= 0) {
-      clearInterval(countdownInterval);
-      document.getElementById('countdown').innerHTML = '已過期！';
-    }
-  };
+      // 倒數結束後顯示訊息
+      if (distance <= 0) {
+        clearInterval(countdownInterval);
+        document.getElementById('countdown').innerHTML = '已過期！';
+      }
+    };
 
-  // 每秒更新一次倒數計時
-  const countdownInterval = setInterval(updateCountdown, 1000);
+    // 每秒更新一次倒數計時
+    const countdownInterval = setInterval(updateCountdown, 1000);
 
-  // 頁面載入時立即更新倒數計時
-  updateCountdown();
-</script>
+    // 頁面載入時立即更新倒數計時
+    updateCountdown();
+
+    // 切換夜晚模式
+    const toggleNightMode = () => {
+      const body = document.body;
+      const button = document.querySelector('.toggle-button');
+      body.classList.toggle('night-mode');
+      if (body.classList.contains('night-mode')) {
+        button.textContent = '返回一般模式';
+      } else {
+        button.textContent = '切換夜晚模式';
+      }
+    };
+  </script>
 </body>
 </html>
-
-<!--create with chatgpt(因為我不會html哈哈) -->
