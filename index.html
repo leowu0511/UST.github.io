@@ -12,7 +12,7 @@
   
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>學測倒數</title>
+  <title>分科倒數</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -46,7 +46,7 @@
   </style>
 </head>
 <body>
-  <h1>學測倒數</h1>
+  <h1>分科倒數</h1>
   <button class="toggle-button" onclick="toggleNightMode()">切換夜晚模式</button>
   <div id="countdown">
     <div class="time-unit" id="days"></div>
@@ -56,8 +56,8 @@
   </div>
 
   <script>
-    // 設定目標日期為 2025 年 1 月 17 日 8時 00分
-    const targetDate = new Date('January 17, 2025 08:00:00').getTime();
+    // 設定目標日期為 2025 年 7 月 11 日 8時 00分
+    const targetDate = new Date('July 11, 2025 08:00:00').getTime();
 
     // 更新倒數計時
     const updateCountdown = () => {
@@ -84,7 +84,7 @@
       // 倒數結束後顯示訊息
       if (distance <= 0) {
         clearInterval(countdownInterval);
-        document.getElementById('countdown').innerHTML = '已過期！';
+        document.getElementById('countdown').innerHTML = '戰鬥吧！';
       }
     };
 
